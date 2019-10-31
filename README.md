@@ -1,4 +1,4 @@
-# kong-plugin-development
+# Loading a custom plugin to Kong docker container
 Documenting kong plugin development process when using docker. 
 
 **Assumptions:**
@@ -9,7 +9,7 @@ Documenting kong plugin development process when using docker.
 1. _You have a Github Person token https://github.com/settings/tokens_
 
 ### Overview
-In this post, we will load a simple header echo plugin that has been documented here: https://www.jerney.io/header-echo-kong-plugin/. 
+In this post, we will load a simple header echo plugin that has been documented here: https://www.jerney.io/header-echo-kong-plugin/. We will mostly follow the instructions posted in the previous link, however, we will add a script that loads it into our Kong docker environment. 
 
 Here's an example of how it should work:
 

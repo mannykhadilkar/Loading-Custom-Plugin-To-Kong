@@ -24,38 +24,38 @@ Once the plugin is loaded into Kong, then we can exercise it and practice making
   `> docker-compose up -d`
   
 - Execute script to clone an existing kong plugin, copy it to Kong docker container location, and reload Kong. 
-  '> ./addHeaderEchoPlugin.sh'
+  `> ./addHeaderEchoPlugin.sh`
   
 ### Create a Service, Route, and Apply the Plugin.
 
 - Create the service, "mock-service". 
-  '> curl -X POST \
+  `> curl -X POST \
   --url "http://localhost:8001/services/" \
   --data "name=mock-service" \
-  --data "url=http://mockbin.org" \'
+  --data "url=http://mockbin.org" \`
   
 - Create the route to the mock-service.
-  '> curl -X POST \
+  `> curl -X POST \
     --url "http://localhost:8001/services/mock-service/routes" \
     --data "hosts[]=mockbin.org" \
-    --data "paths[]=/mock" \'
+    --data "paths[]=/mock" \`
     
 - Validate setup by proxying a call to the route you created. 
-  '>curl http://localhost:8000/mock/request -H 'Host: mockbin.org''
+  `>curl http://localhost:8000/mock/request -H 'Host: mockbin.org'`
   
 - Now we're ready to add the plugin to our service. First execute this command and make sure the plugin shows up.
-  '> curl http://localhost:8001/ | python -mjson.tool'
+  `> curl http://localhost:8001/ | python -mjson.tool`
   
   Under "plugins": "available on server:" You will see the "kong-plugin-header-echo": true entry. 
   
 - Now lets apply the plugin to the mock-service through the Admin API. NOTE: You can also do this using Kong Manager. 
-  '> curl -X POST \
+  `> curl -X POST \
     --url "http://localhost:8001/services/mock-service/plugins" \
     --data "name=kong-plugin-header-echo" \
-    | python -mjson.tool'
+    | python -mjson.tool`
  
 You should see an output like this:
-'"created_at": 1537080281000,
+`"created_at": 1537080281000,
     "config": {
         "requestHeader": "X-Request-Echo",
         "responseHeader": "X-Response-Echo"
@@ -63,14 +63,14 @@ You should see an output like this:
     "id": "e173ab1b-8094-4ab8-bcda-326bcbc46198",
     "enabled": true,
     "service_id": "4ecbe361-8dad-46fb-a6ab-13f3353c9805",
-    "name": "kong-plugin-header-echo"'
+    "name": "kong-plugin-header-echo"`
     
  Notice the requestHeader and responseHeader. The requestHeader is what we will need to pass into the API call to get the responseHeader as output. 
  
  ### Now lets proxy a request to the plugin and see if it works!
  
  - Proxy a request using curl
-  '> curl -i http://localhost:8000/mock/request -H 'Host: mockbin.org' -H 'X-Request-Echo: Hello, world''
+  `> curl -i http://localhost:8000/mock/request -H 'Host: mockbin.org' -H 'X-Request-Echo: Hello, world'`
   
  - In the response, you will see a header: "X-Response-Echo: Hello, world"
  
@@ -112,8 +112,9 @@ rm -Rf tmp
 
 If you run into problems loading this plugin into Kong, you can glean a lot of information from the docker container logs. After running the addHeaderEchoPlugin.sh script, you can see the docker logs by issuing the following command. 
 
-  '> docker logs kong-ent'
+  `> docker logs kong-ent`
 
 If you want to tail the logs you can change the command to:
-  '> docker logs kong-ent -f'
+
+  `> docker logs kong-ent -f`
   

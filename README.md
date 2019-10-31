@@ -107,3 +107,13 @@ rm -Rf tmp
 1. How to take a custom plugin and load it into the Kong docker container
 2. How to add a service, route, and apply the custom plugin to the service. 
 
+
+## Troubleshooting
+
+If you run into problems loading this plugin into Kong, you can glean a lot of information from the docker container logs. After running the addHeaderEchoPlugin.sh script, you can see the docker logs by issuing the following command. 
+
+  '> docker logs kong-ent'
+
+If you want to tail the logs you can change the command to:
+  '> docker logs kong-ent -f'
+  
